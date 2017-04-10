@@ -21,10 +21,13 @@ RCT_EXPORT_METHOD(isSupported: (RCTResponseSenderBlock)callback)
 }
 
 RCT_EXPORT_METHOD(authenticate: (NSString *)reason
-                      callback: (RCTResponseSenderBlock)callback)
+                    callback: (RCTResponseSenderBlock)callback)
 {
     LAContext *context = [[LAContext alloc] init];
     NSError *error;
+
+    // Hide "Enter Password" fallback button
+    context.localizedFallbackTitle = @"";
 
     // Device has TouchID
     if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
